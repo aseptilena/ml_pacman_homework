@@ -1,0 +1,14 @@
+class: "GradeClassifierTest"
+classifier_module: "perceptron_pacman"
+classifier_class: "PerceptronClassifierPacman"
+
+automatic_tuning: "True"
+feature_function: "enhanced_feature_extractor_pacman"
+
+max_iterations: "4"
+
+dataset_name: "contest_data"
+
+exact_output: "False"
+accuracy_scale: "2"
+accuracy_thresholds: "90"

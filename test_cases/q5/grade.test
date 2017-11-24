@@ -1,0 +1,13 @@
+class: "GradeClassifierTest"
+classifier_module: "logistic"
+classifier_class: "SoftmaxClassifier"
+
+max_iterations: "50"
+
+dataset_name: "big_digit_data"
+
+# our solution: 86%
+exact_output: "False"
+accuracy_scale: "3"
+accuracy_thresholds: "84"
+learning_rates: "0.05 0.1 0.5 1.0 0.01"

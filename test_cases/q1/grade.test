@@ -1,0 +1,17 @@
+class: "GradeClassifierTest"
+classifier_module: "perceptron"
+classifier_class: "PerceptronClassifier"
+
+max_iterations: "4"
+
+dataset_name: "big_digit_data"
+
+# our solution: 79%
+exact_output: "False"
+accuracy_scale: "4"
+accuracy_thresholds: "70"
+
+record_time: ".perceptron"
+
+
+
