@@ -43,7 +43,7 @@ class SoftmaxClassifier:
         self.x = tf.placeholder(tf.float32, [None, 784])
         self.W = tf.Variable(tf.zeros([784, 10]))
         self.b = tf.Variable(tf.zeros([10]))
-        self.y = tf.nn.softmax(tf.matmul(self.x, self.W) + self.b)
+        self.y = tf.matmul(self.x, self.W) + self.b
         self.y_ = tf.placeholder(tf.float32, [None, 10])
         # create TensorFlow session
         self.sess = tf.InteractiveSession()
@@ -69,24 +69,36 @@ class SoftmaxClassifier:
 
         learning_rate = self.learning_rates[0]
 
-        # Note: features should come into tf.placeholder self.x and output
-        # should be in self.y to make the classify method work correctly.
-        # If you use different variable names, then you will need to change
-        # that method accordingly
         cross_entropy = tf.reduce_mean(
             tf.nn.softmax_cross_entropy_with_logits(labels=self.y_, logits=self.y))
         train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)
 
-        # Train
-        batch_xs = np.asarray([datum.values_as_numpy_array() for datum in training_data])
-        converted_label = []
-        for i in range(np.size(batch_xs, 0)):
-            index_value = training_labels[i]
+        for x in range(self.max_iterations):
+            batch_xs = np.asarray([datum.values_as_numpy_array() for datum in training_data])
+            converted_labels = []
+            for label in training_labels:
+                index_value = label
+                array = [0 for x in range(10)]
+                array[index_value] = 1
+                converted_labels.append(array)
+            batch_ys = np.asarray(converted_labels)
+            self.sess.run(train_step, feed_dict={self.x: batch_xs, self.y_: batch_ys})
+
+        test_images = np.asarray([datum.values_as_numpy_array() for datum in validation_data])
+        test_labels = []
+
+        for label in validation_labels:
+            index_value = label
             array = [0 for x in range(10)]
             array[index_value] = 1
-            converted_label.append(array)
-        batch_ys = np.asarray(converted_label)
-        self.sess.run(train_step, feed_dict={self.x: batch_xs, self.y_: batch_ys})
+            test_labels.append(array)
+        test_labels = np.asarray(test_labels)
+
+        correct_prediction = tf.equal(tf.argmax(self.y, 1), tf.argmax(self.y_, 1))
+        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+        print(self.sess.run(accuracy, feed_dict={self.x: test_images,
+                                                 self.y_: test_labels}))
+
 
     def classify(self, data):
         """
@@ -100,12 +112,12 @@ class SoftmaxClassifier:
 
 
 def find_high_weight_features(self, label, num=100):
-        """
-        Returns a list of the num features with the greatest weight for some label
-        """
+    """
+    Returns a list of the num features with the greatest weight for some label
+    """
 
-        # this function is optional for this classifier, but if you want to 
-        # visualize the weights of this classifier, you will need to implement
-        # it
+    # this function is optional for this classifier, but if you want to
+    # visualize the weights of this classifier, you will need to implement
+    # it
 
-        util.raise_not_defined()
+    util.raise_not_defined()
