@@ -75,23 +75,18 @@ class SoftmaxClassifier:
         # that method accordingly
         cross_entropy = tf.reduce_mean(
             tf.nn.softmax_cross_entropy_with_logits(labels=self.y_, logits=self.y))
-        train_step = tf.train.GradientDescentOptimizer(.5).minimize(cross_entropy)
+        train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)
 
         # Train
-        max_index = int(len(training_data) / 100)
-        for _ in range(1000):
-            try:
-                batch_xs = np.asarray([datum.values_as_numpy_array() for datum in training_data[_ * 100:(_ + 1) * 100]])
-                converted_label = []
-                for i in range(_ * 100, (_ + 1) * 100):
-                    index_value = training_labels[i]
-                    array = [0 for x in range(10)]
-                    array[index_value] = 1
-                    converted_label.append(array)
-                batch_ys = np.asarray(converted_label)
-                self.sess.run(train_step, feed_dict={self.x: batch_xs, self.y_: batch_ys})
-            except IndexError:
-                break
+        batch_xs = np.asarray([datum.values_as_numpy_array() for datum in training_data])
+        converted_label = []
+        for i in range(np.size(batch_xs, 0)):
+            index_value = training_labels[i]
+            array = [0 for x in range(10)]
+            array[index_value] = 1
+            converted_label.append(array)
+        batch_ys = np.asarray(converted_label)
+        self.sess.run(train_step, feed_dict={self.x: batch_xs, self.y_: batch_ys})
 
     def classify(self, data):
         """
