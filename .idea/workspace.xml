@@ -11,11 +11,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="perceptron_numpy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/perceptron_numpy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="108" column="14" lean-forward="false" selection-start-line="107" selection-start-column="2" selection-end-line="123" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="logistic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logistic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="75" column="44" lean-forward="false" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
+            <state relative-caret-position="316">
+              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -111,8 +121,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Autograder q4">
-    <configuration name="Autograder q4" type="PythonConfigurationType" factoryName="Python">
+  <component name="RunManager" selected="Python.Autograder q5">
+    <configuration name="Autograder q5" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -142,7 +152,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CSI480" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_classifier.py" />
-      <option name="PARAMETERS" value="-c logistic" />
+      <option name="PARAMETERS" value="-c logistic -w" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
@@ -181,7 +191,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.Autograder q4" />
+      <item index="0" class="java.lang.String" itemvalue="Python.Autograder q5" />
       <item index="1" class="java.lang.String" itemvalue="Python.logistic_classifier" />
       <item index="2" class="java.lang.String" itemvalue="Python.tf_test" />
       <item index="3" class="java.lang.String" itemvalue="Python.panic_fix_q3" />
@@ -236,7 +246,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="41" />
+      <option name="time" value="46" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -467,14 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/perceptron_numpy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="121" column="47" lean-forward="false" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/digitdata/validationlabels">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-16589">
@@ -517,10 +519,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/perceptron_numpy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="108" column="14" lean-forward="false" selection-start-line="107" selection-start-column="2" selection-end-line="123" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/logistic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="75" column="44" lean-forward="false" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
+        <state relative-caret-position="316">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
         </state>
       </provider>
