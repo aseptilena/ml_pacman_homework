@@ -17,13 +17,14 @@ Student side autograding was added by Brad Miller, Nick Hay, and
 Pieter Abbeel (pabbeel@cs.berkeley.edu).
 """
 
-
 # Perceptron implementation
 import util
+
 PRINT = True
 
 import numpy as np
 import tensorflow as tf
+
 
 class SoftmaxClassifier:
     """
@@ -33,17 +34,22 @@ class SoftmaxClassifier:
 
     Note that the variable 'datum' in this code refers to a counter of features
     """
-    def __init__( self, legal_labels, max_iterations):
+
+    def __init__(self, legal_labels, max_iterations):
         self.legal_labels = legal_labels
         self.type = "logistic"
         self.max_iterations = max_iterations
         self.learning_rates = [0.2]
-        
+        self.x = tf.placeholder(tf.float32, [None, 784])
+        self.W = tf.Variable(tf.zeros([784, 10]))
+        self.b = tf.Variable(tf.zeros([10]))
+        self.y = tf.nn.softmax(tf.matmul(self.x, self.W) + self.b)
+        self.y_ = tf.placeholder(tf.float32, [None, 10])
         # create TensorFlow session
         self.sess = tf.InteractiveSession()
+        tf.global_variables_initializer().run()
 
- 
-    def train( self, training_data, training_labels, validation_data, validation_labels ):
+    def train(self, training_data, training_labels, validation_data, validation_labels):
         """
         The training loop for the softmax classifier passes through the training data several
         times and updates the weight vector for each label based on the cross entropy loss
@@ -59,38 +65,46 @@ class SoftmaxClassifier:
         Important note: this should operate in batch mode, using all training_data 
             for each batch
         """
+        self.features = list(training_data[0].keys())  # could be useful later
 
-        self.features = list(training_data[0].keys()) # could be useful later
-        
         learning_rate = self.learning_rates[0]
-        
-        # Note: features should come into tf.placeholder self.x and output 
+
+        # Note: features should come into tf.placeholder self.x and output
         # should be in self.y to make the classify method work correctly.
         # If you use different variable names, then you will need to change
         # that method accordingly
-        
+        cross_entropy = tf.reduce_mean(
+            tf.nn.softmax_cross_entropy_with_logits(labels=self.y_, logits=self.y))
+        train_step = tf.train.GradientDescentOptimizer(.5).minimize(cross_entropy)
 
-        "*** YOUR CODE HERE ***"
-        util.raise_not_defined()
+        # Train
+        max_index = int(len(training_data) / 100)
+        for _ in range(1000):
+            try:
+                batch_xs = np.asarray([datum.values_as_numpy_array() for datum in training_data[_ * 100:(_ + 1) * 100]])
+                converted_label = []
+                for i in range(_ * 100, (_ + 1) * 100):
+                    index_value = training_labels[i]
+                    array = [0 for x in range(10)]
+                    array[index_value] = 1
+                    converted_label.append(array)
+                batch_ys = np.asarray(converted_label)
+                self.sess.run(train_step, feed_dict={self.x: batch_xs, self.y_: batch_ys})
+            except IndexError:
+                break
 
-
-
-
-    def classify(self, data ):
+    def classify(self, data):
         """
         Classifies each datum as the label that most closely matches the prototype vector
         for that label.  See the project description for details.
 
         Recall that a datum is a util.counter...
         """
-        
-        output = tf.argmax(self.y,1)
+        output = tf.argmax(self.y, 1)
         return self.sess.run(output, feed_dict={self.x: [datum.values_as_numpy_array() for datum in data]})
-        
-        
 
 
-    def find_high_weight_features(self, label, num=100):
+def find_high_weight_features(self, label, num=100):
         """
         Returns a list of the num features with the greatest weight for some label
         """

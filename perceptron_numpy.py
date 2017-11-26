@@ -19,10 +19,11 @@ Student side autograding was added by Brad Miller, Nick Hay, and
 Pieter Abbeel (pabbeel@cs.berkeley.edu).
 """
 
-
 import util
+
 PRINT = True
 import numpy as np
+
 
 class OptimizedPerceptronClassifier:
     """
@@ -30,7 +31,8 @@ class OptimizedPerceptronClassifier:
 
     Note that the variable 'datum' in this code refers to a counter of features
     """
-    def __init__( self, legal_labels, max_iterations):
+
+    def __init__(self, legal_labels, max_iterations):
         self.legal_labels = legal_labels
         self.type = "perceptron_numpy"
         self.max_iterations = max_iterations
@@ -39,7 +41,7 @@ class OptimizedPerceptronClassifier:
         self.weights = None
         self.features = None
 
-    def train( self, training_data, training_labels, validation_data, validation_labels ):
+    def train(self, training_data, training_labels, validation_data, validation_labels):
         """
         The training loop for the perceptron passes through the training data several
         times and updates the weight vector for each label based on classification errors.
@@ -54,12 +56,19 @@ class OptimizedPerceptronClassifier:
 
         # now we can initialize the weights
         if self.weights is None:
-            self.features = list(training_data[0].keys()) # could be useful later
+            self.features = list(training_data[0].keys())  # could be useful later
             self.weights = np.zeros((len(self.features), len(self.legal_labels)))
 
         "*** YOUR CODE HERE ***"
-        self.classify(training_data)
-
+        for data, label in zip(training_data, training_labels):
+            data = np.asarray(data.values_as_numpy_array())
+            calculated_weights = np.dot(data, self.weights)
+            guessed_weight = np.argmax(calculated_weights)
+            if guessed_weight != label:
+                self.weights.T[guessed_weight] -= data
+                self.weights.T[label] += data
+            cat = "meow"
+            # self.classify(training_data)
 
     def classify(self, data):
         """
@@ -71,13 +80,14 @@ class OptimizedPerceptronClassifier:
         """
         if self.weights is None:
             raise Exception("the perceptron must be trained before data can be classified")
-        
+
         # convert to numpy matrix
         data_matrix = np.asarray([datum.values_as_numpy_array() for datum in data])
-        
-        "*** YOUR CODE HERE ***"
-        dot_products = np.sum(data_matrix * self.weights, axis=1)
 
+        "*** YOUR CODE HERE ***"
+        calculated_weights = np.dot(data_matrix, self.weights)
+        guesses = calculated_weights.argmax(axis=1)
+        return guesses
 
     def find_high_weight_features(self, label, num=100):
         """
@@ -93,6 +103,22 @@ class OptimizedPerceptronClassifier:
 			sorted([key for key in dictionary.keys()], key=lambda k: dictionary[k])
 		You can also set some other function or lambda expression as the sort key
         """
-        
+
         "*** YOUR CODE HERE ***"
-        util.raise_not_defined()
+        weight_label = self.weights.T[label]
+        w_list = weight_label.tolist()
+        unique_values = set(w_list)
+        sorted_list = list(unique_values)
+        sorted_list.sort(reverse=True)
+        high_weights = []
+
+        for value in sorted_list:
+            indeces = np.argwhere(weight_label == value)
+            for index in indeces:
+                if len(high_weights) >= num:
+                    break
+                x = index[0] // 28
+                y = index[0] % 28
+                high_weights.append(tuple([x,y]))
+        res = np.asarray(high_weights)
+        return high_weights
