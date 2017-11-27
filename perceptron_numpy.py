@@ -1,6 +1,27 @@
 """perceptron_numpy.py
 
 Optimized perceptron implementation using numpy
+Author:              Victoria Hayes
+Class:               CSI-480-02
+Assignment:          Supervised Learning Assignment
+Date Assigned:       I dunno, November 8th?
+Due Date:            November 27, 2017 11:59 pm
+
+Description:
+this re-implements the perceptron ml algorithm using numpy (q2 (and 3, partially))
+
+Certification of Authenticity:
+I certify that this is entirely my own work, except where I have been provided
+code by the instructor, or given fully-documented references to the work of
+others. I understand the definition and consequences of plagiarism and
+acknowledge that the assessor of this assignment may, for the purpose of
+assessing this assignment:
+    Reproduce this assignment and provide a copy to another member of academic
+    staff; and/or Communicate a copy of this assignment to a plagiarism checking
+    service (which may then retain a copy of this assignment on its database for
+    the purpose of future plagiarism checking)
+
+This code has been adapted from that provided by Prof. Joshua Auerbach:
 
 Champlain College CSI-480, Fall 2017
 The following code was adapted by Joshua Auerbach (jauerbach@champlain.edu)
