@@ -58,4 +58,13 @@ class PerceptronClassifierPacman(PerceptronClassifier):
             print("Starting iteration ", iteration, "...")
             for (datum, legal_moves), label in zip(training_data, training_labels):
                 "*** YOUR CODE HERE ***"
-                util.raise_not_defined()
+                guess = self.classify([tuple([datum, legal_moves])])
+                dog = "woof"
+
+                if guess[0] == label:
+                    pass
+                else:
+                    for f in self.features:
+                        self.weights[f] += datum[label][f]
+                        self.weights[f] -= datum[guess[0]][f]
+                    cat = "meow"
